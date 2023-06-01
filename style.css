@@ -52,3 +52,7 @@ body {
     Fr is a fractional unit and 1fr is for 1 part of the availabel space. 
   */
 }
+
+.board .target {
+  background-color: red;
+}

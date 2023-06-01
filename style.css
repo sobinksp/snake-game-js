@@ -8,13 +8,26 @@
   /* font-family: 'VT323', monospace; */
 }
 
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* defines space distribution between content  */
+  min-height: 100vh; /* defines minimum height of an element */
+  /* vh is viewport height (viewport is user's visible area */
+  background-color: rgb(153, 155, 156);
+}
+
 .container {
   width: 65vmin;
   height: 70vmin;
   background-color: rgb(49, 47, 45);
+  border-style: groove;
 }
 
 .game-details {
   color: aliceblue;
   font-size: 1.2rem;
+  padding: 20px 27px;
+  display: flex;
+  justify-content: space-between;
 }

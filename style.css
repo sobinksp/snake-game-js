@@ -61,6 +61,27 @@ body {
 
 .board .player {
   background-color: rgb(113, 97, 1, 255);
-  /* border-color: rgb(80, 170, 170); */
-  /* border-width: 5px; */
+}
+
+#game-over-panel {
+  position: absolute;
+  width: 30vmin;
+  height: 30vmin;
+  background-color: rgb(113, 97, 1, 255);
+  /* background-color: rgb(153, 155, 156); */
+  /* transform: translate(-50%, -50%); */
+  /* border: solid black; */
+  padding: 20px;
+  text-align: center;
+  display: none;
+  /* display: none; */
+}
+
+#restart-button {
+  /* position: absolute; */
+  margin-top: 100px;
+  font-size: 25px;
+  padding: 30px 50px;
+  border: none;
+  cursor: pointer;
 }

@@ -58,12 +58,11 @@ function initGame() {
     playerBody[i] = playerBody[i - 1];
   }
 
-  playerBody[0] = [playerX, playerY]; // player head is current postion
+  playerBody[0] = [playerX, playerY]; // player head is current position
   playerX += velocityX;
   playerY += velocityY;
 
-  // check if player head hit the border
-  borderCollision();
+  borderCollision(); // check if player head hit the border
 
   for (let i = 0; i < playerBody.length; i++) {
     htmlMarkup += `<div class ="player" style="grid-area: ${playerBody[i][1]}/ ${playerBody[i][0]}"></div>`;

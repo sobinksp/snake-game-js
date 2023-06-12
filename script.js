@@ -58,8 +58,7 @@ function initGame() {
     playerBody[i] = playerBody[i - 1];
   }
 
-  // player head = current position.
-  playerBody[0] = [playerX, playerY];
+  playerBody[0] = [playerX, playerY]; // player head is current postion
   playerX += velocityX;
   playerY += velocityY;
 

@@ -44,7 +44,25 @@ function borderCollision() {
     playerBody[0] = [playerX, playerY];
   }
 }
+function pause() {
+  clearInterval();
+}
 
+function gameOver() {
+  const gameOverPanel = document.getElementById("game-over-panel");
+  const restartButton = document.getElementById("restart-button");
+  clearInterval(sequence);
+  gameOverPanel.style.display = "block";
+  restartButton.addEventListener("click", restartGame);
+  //   clearInterval(intervalId);
+}
+
+function restartGame() {
+  const gameOverPanel = document.getElementById("game-over-panel");
+  gameOverPanel.style.display = "none";
+  //   clearInterval(sequence);
+  location.reload();
+}
 function initGame() {
   const boardGrid = document.querySelector(".board");
   let htmlMarkup;
@@ -63,16 +81,17 @@ function initGame() {
   playerY += velocityY;
 
   borderCollision(); // check if player head hit the border
-
+  //   playerBody[x][1] = column
+  //   playerBody[x][0] = row
   for (let i = 0; i < playerBody.length; i++) {
     htmlMarkup += `<div class ="player" style="grid-area: ${playerBody[i][1]}/ ${playerBody[i][0]}"></div>`;
+    // if ()
   }
   boardGrid.innerHTML = htmlMarkup;
 }
 
 targetPositionGenerator();
-// initGame();
-setInterval(initGame, 150);
+let sequence = setInterval(initGame, 250); // method calls a function at specifed intervals (ms).
 
 // the first parameter is event which can be found on the internet.
 // the second parameter is function name.

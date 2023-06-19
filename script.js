@@ -6,31 +6,36 @@ let velocityX = 0,
   velocityY = 0;
 let pauseState = false;
 let intervalTime = 500;
+
 function targetPositionGenerator() {
   targetX = Math.floor(Math.random() * 30) + 1;
   targetY = Math.floor(Math.random() * 30) + 1;
 }
 
 function playerMovement(e) {
-  if (e.key === "w" && pauseState !== true) {
+  if (pauseState) {
+    return;
+  }
+  if (e.key === "w") {
     velocityX = 0;
     velocityY = -1;
-  } else if (e.key === "a" && pauseState !== true) {
+  } else if (e.key === "a") {
     velocityX = -1;
     velocityY = 0;
-  } else if (e.key === "s" && pauseState !== true) {
+  } else if (e.key === "s") {
     velocityX = 0;
     velocityY = 1;
-  } else if (e.key === "d" && pauseState !== true) {
+  } else if (e.key === "d") {
     velocityX = 1;
     velocityY = 0;
-  } else if (e.key === "Escape" && pauseState !== true) {
-    pauseState = true;
-    clearInterval(sequence);
-  } else if (e.key === "Escape" && pauseState === true) {
-    sequence = setInterval(initGame, intervalTime);
-    pauseState = false;
   }
+  //   } else if (e.key === "Escape" && pauseState !== true) {
+  //     pauseState = true;
+  //     clearInterval(sequence);
+  //   } else if (e.key === "Escape" && pauseState === true) {
+  //     sequence = setInterval(initGame, intervalTime);
+  //     pauseState = false;
+  //   }
   initGame();
   //   console.log(e.key);
   //   console.log(playerX, playerY);
@@ -52,13 +57,13 @@ function borderCollision() {
   }
 }
 
-function shiftingBody() {
-  for (let i = playerBody.length - 1; i > 1; i--) {
-    playerBody[i] = playerBody[i - 1];
+function togglePauseGame() {
+  pauseState = !pauseState;
+  if (pauseState) {
+    clearInterval(sequence);
+  } else {
+    sequence = setInterval(initGame, intervalTime);
   }
-}
-function pause() {
-  clearInterval(sequence);
 }
 
 function gameOver() {
@@ -94,8 +99,11 @@ function initGame() {
   playerX += velocityX;
   playerY += velocityY;
 
+  // playerBody[x][1] = row
+  // playerBody[x][0] = column
   for (let i = 0; i < playerBody.length; i++) {
     htmlMarkup += `<div class ="player" style="grid-area: ${playerBody[i][1]}/ ${playerBody[i][0]}"></div>`;
+    // if player's head hit player's body, the game is over.
     if (
       i !== 0 &&
       playerBody[0][1] === playerBody[i][1] &&
@@ -112,4 +120,9 @@ let sequence = setInterval(initGame, intervalTime); // method calls a function a
 
 // the first parameter is event which can be found on the internet.
 // the second parameter is function name.
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    togglePauseGame();
+  }
+});
 document.addEventListener("keydown", playerMovement);

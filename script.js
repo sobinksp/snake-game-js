@@ -6,6 +6,10 @@ let velocityX = 0,
   velocityY = 0;
 let pauseState = false;
 let intervalTime = 500;
+let gameOverState = false;
+const pauseOverPanel = document.querySelector(".pause-over-panel");
+const restartButton = document.getElementById("restart-button");
+const panelHeader = document.querySelector(".pause-over-panel h1");
 
 function targetPositionGenerator() {
   targetX = Math.floor(Math.random() * 30) + 1;
@@ -14,6 +18,9 @@ function targetPositionGenerator() {
 
 function playerMovement(e) {
   if (pauseState) {
+    return;
+  }
+  if (gameOverState) {
     return;
   }
   if (e.key === "w") {
@@ -29,13 +36,6 @@ function playerMovement(e) {
     velocityX = 1;
     velocityY = 0;
   }
-  //   } else if (e.key === "Escape" && pauseState !== true) {
-  //     pauseState = true;
-  //     clearInterval(sequence);
-  //   } else if (e.key === "Escape" && pauseState === true) {
-  //     sequence = setInterval(initGame, intervalTime);
-  //     pauseState = false;
-  //   }
   initGame();
   //   console.log(e.key);
   //   console.log(playerX, playerY);
@@ -61,26 +61,27 @@ function togglePauseGame() {
   pauseState = !pauseState;
   if (pauseState) {
     clearInterval(sequence);
+    panelHeader.textContent = "PAUSE";
+    pauseOverPanel.style.display = "block";
+    restartButton.addEventListener("click", restartGame);
   } else {
+    pauseOverPanel.style.display = "none";
     sequence = setInterval(initGame, intervalTime);
   }
 }
 
 function gameOver() {
-  const gameOverPanel = document.getElementById("game-over-panel");
-  const restartButton = document.getElementById("restart-button");
   clearInterval(sequence);
-  gameOverPanel.style.display = "block";
+  panelHeader.textContent = "GAME OVER";
+  pauseOverPanel.style.display = "block";
   restartButton.addEventListener("click", restartGame);
-  //   clearInterval(intervalId);
 }
 
 function restartGame() {
-  const gameOverPanel = document.getElementById("game-over-panel");
-  gameOverPanel.style.display = "none";
-  //   clearInterval(sequence);
+  pauseOverPanel.style.display = "none";
   location.reload();
 }
+
 function initGame() {
   const boardGrid = document.querySelector(".board");
   let htmlMarkup;
@@ -99,8 +100,8 @@ function initGame() {
   playerX += velocityX;
   playerY += velocityY;
 
-  // playerBody[x][1] = row
-  // playerBody[x][0] = column
+  // playerBody[i][1] = row
+  // playerBody[i][0] = column
   for (let i = 0; i < playerBody.length; i++) {
     htmlMarkup += `<div class ="player" style="grid-area: ${playerBody[i][1]}/ ${playerBody[i][0]}"></div>`;
     // if player's head hit player's body, the game is over.
@@ -109,19 +110,18 @@ function initGame() {
       playerBody[0][1] === playerBody[i][1] &&
       playerBody[0][0] === playerBody[i][0]
     ) {
+      gameOverState = true;
+      console.log(gameOverState);
       gameOver();
     }
   }
   boardGrid.innerHTML = htmlMarkup;
 }
-
 targetPositionGenerator();
 let sequence = setInterval(initGame, intervalTime); // method calls a function at specifed intervals (ms).
 
-// the first parameter is event which can be found on the internet.
-// the second parameter is function name.
 document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape") {
+  if (e.key === "Escape" && gameOverState === false) {
     togglePauseGame();
   }
 });

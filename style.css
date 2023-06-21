@@ -1,11 +1,9 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=VT323&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto Condensed", sans-serif;
-  /* font-family: 'VT323', monospace; */
+  font-family: "VT323", monospace;
 }
 
 body {
@@ -14,27 +12,29 @@ body {
   justify-content: center; /* defines space distribution between content  */
   min-height: 100vh; /* defines minimum height of an element */
   /* vh is viewport height (viewport is user's visible area */
-  background-color: rgb(153, 155, 156);
+  background-color: rgb(189, 202, 0);
+  /* background-color: rgb(153, 155, 156); */
 }
 
 .container {
   width: 65vmin;
   height: 70vmin;
-  background-color: rgb(49, 47, 45);
   display: flex;
-  flex-direction: column; /*defines how flex items are placed in the flex container*/
-  border-style: ridge;
-  border-radius: 4px;
-  /* overflow: hidden; */
-  border-color: rgb(11, 12, 12);
+  flex-direction: column;
+  border-color: rgb(49, 47, 45);
 }
 
-.game-details {
-  color: rgb(210, 213, 216);
-  font-size: 1.2rem;
-  padding: 10px 25px;
+.score-details {
+  color: rgb(49, 47, 45);
+  font-size: 1.5rem;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+.score-details hr {
+  height: 3px;
+  background-color: rgb(49, 47, 45);
+  width: 100.56%;
+  border: none;
 }
 
 .board {
@@ -43,7 +43,8 @@ body {
   background-color: rgb(189, 202, 0, 255);
   display: grid;
   grid-template: repeat(30, 1fr) / repeat(30, 1fr);
-  /* border-style: solid; */
+  border-width: medium;
+  border-style: solid;
   /*
     grid-template : grid-template-rows / grid-template-columns
     repeat(repeat count, tracks) 
@@ -56,11 +57,11 @@ body {
 
 .board .target {
   border-radius: 50%;
-  background-color: rgb(113, 97, 1, 255);
+  background-color: rgb(49, 47, 45);
 }
 
 .board .player {
-  background-color: rgb(113, 97, 1, 255);
+  background-color: rgb(49, 47, 45);
 }
 
 .pause-over-panel {

@@ -72,11 +72,14 @@ body {
   border-color: rgb(49, 47, 45);
   /* background-color: rgb(113, 97, 1, 255); */
   text-align: center;
+  /* border: solid; */
   display: none;
+  /* display: block; */
 }
 
 .pause-over-panel h1 {
   margin-top: 15%;
+  font-size: 4em;
 }
 
 #restart-button {
@@ -84,7 +87,7 @@ body {
   width: 50%;
   height: 30%;
   left: 25%;
-  bottom: 10%;
+  bottom: 20%;
   font-size: 1.5rem;
   background-color: transparent;
   border: none;

@@ -5,7 +5,7 @@ let playerX = 10,
 let velocityX = 0,
   velocityY = 0;
 let pauseState = false;
-let intervalTime = 500;
+let intervalTime = 350;
 let gameOverState = false;
 const pauseOverPanel = document.querySelector(".pause-over-panel");
 const restartButton = document.getElementById("restart-button");
@@ -82,21 +82,25 @@ function restartGame() {
   location.reload();
 }
 
-function initGame() {
-  const boardGrid = document.querySelector(".board");
-  let htmlMarkup;
-  htmlMarkup = `<div class ="target" style="grid-area: ${targetY}/ ${targetX}"></div>`;
-
+function eatFood() {
   if (playerX === targetX && playerY === targetY) {
     targetPositionGenerator();
     playerBody.push([targetX, targetY]);
   }
+}
+function initGame() {
+  const boardGrid = document.querySelector(".board");
+  let htmlMarkup;
+  htmlMarkup = `<div class ="target" style="grid-area: ${targetY}/ ${targetX}"></div>`;
+  eatFood();
   // shifting player body value
   for (let i = playerBody.length - 1; i > 0; i--) {
     playerBody[i] = playerBody[i - 1];
   }
   playerBody[0] = [playerX, playerY]; // player head is current position
   borderCollision(); // check if player head hit the border
+  eatFood();
+
   playerX += velocityX;
   playerY += velocityY;
 

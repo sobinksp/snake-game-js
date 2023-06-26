@@ -5,11 +5,13 @@ let playerX = 10,
 let velocityX = 0,
   velocityY = 0;
 let pauseState = false;
-let intervalTime = 350;
 let gameOverState = false;
+let intervalTime = 350;
 const pauseOverPanel = document.querySelector(".pause-over-panel");
 const restartButton = document.getElementById("restart-button");
 const panelHeader = document.querySelector(".pause-over-panel h1");
+let scoreValue = 0;
+const scoreElement = document.querySelector(".current-score");
 
 function targetPositionGenerator() {
   targetX = Math.floor(Math.random() * 30) + 1;
@@ -86,6 +88,8 @@ function eatFood() {
   if (playerX === targetX && playerY === targetY) {
     targetPositionGenerator();
     playerBody.push([targetX, targetY]);
+    scoreValue += 5;
+    scoreElement.textContent = scoreValue.toString().padStart(5, "0");
   }
 }
 function initGame() {
